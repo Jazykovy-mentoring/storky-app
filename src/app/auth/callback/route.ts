@@ -5,7 +5,7 @@
 // podľa role.
 
 import { NextResponse } from "next/server";
-import { createServerSupabaseClient } from "@/lib/supabase";
+import { createServerSupabaseClient } from "@/lib/supabase-server";
 import { getUserByEmail, homePathForRole } from "@/lib/auth";
 
 export async function GET(request: Request) {

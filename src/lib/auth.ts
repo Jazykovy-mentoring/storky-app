@@ -4,7 +4,7 @@
 // že by Lydka/Verča potrebovali iný email). Server aj client side
 // volajú `getUserByEmail()` na rozhodnutie role.
 
-import { createServerSupabaseClient } from "@/lib/supabase";
+import { createServerSupabaseClient } from "@/lib/supabase-server";
 
 export type UserRole = "lydka" | "verca";
 

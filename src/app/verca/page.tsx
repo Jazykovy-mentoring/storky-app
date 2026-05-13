@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import { createServerSupabaseClient } from "@/lib/supabase-server";
 import {
-  createServerSupabaseClient,
   publicPhotoUrl,
   type Story,
   type StoryPhoto,

@@ -9,7 +9,7 @@
 
 import Anthropic from "@anthropic-ai/sdk";
 import { NextResponse } from "next/server";
-import { createServerSupabaseClient } from "@/lib/supabase";
+import { createServerSupabaseClient } from "@/lib/supabase-server";
 import { getCurrentUser } from "@/lib/auth";
 import { buildSystemPrompt } from "@/lib/buildSystemPrompt";
 import { fixTypography } from "@/lib/typography";

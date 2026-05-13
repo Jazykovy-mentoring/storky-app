@@ -1,14 +1,16 @@
-// Supabase clients pre Storky App.
+// Supabase clients pre Storky App (client + middleware variants).
 //
 // - `createBrowserSupabaseClient()` – pre client komponenty (singleton per tab).
-// - `createServerSupabaseClient()`  – pre Server Components a Route Handlers.
 // - `createMiddlewareSupabaseClient(req, res)` – pre `middleware.ts` (refresh session).
+//
+// Server-only `createServerSupabaseClient()` je v `supabase-server.ts` —
+// oddelený lebo `next/headers` cookies funguje iba na serveri. Webpack by
+// pri client importe `supabase.ts` hodil error, keby tu bol `cookies` import.
 //
 // Používame `@supabase/ssr` (oficiálny SSR package), NIE deprecated
 // `@supabase/auth-helpers-nextjs`.
 
 import { createBrowserClient, createServerClient, type CookieOptions } from "@supabase/ssr";
-import { cookies } from "next/headers";
 import type { NextRequest, NextResponse } from "next/server";
 
 // =====================================================================
@@ -62,37 +64,6 @@ export const STORY_PHOTOS_BUCKET = "story-photos";
 
 export function createBrowserSupabaseClient() {
   return createBrowserClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-}
-
-// =====================================================================
-// SERVER CLIENT (Server Components, Route Handlers)
-// =====================================================================
-
-export function createServerSupabaseClient() {
-  const cookieStore = cookies();
-
-  return createServerClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
-    cookies: {
-      get(name: string) {
-        return cookieStore.get(name)?.value;
-      },
-      set(name: string, value: string, options: CookieOptions) {
-        try {
-          cookieStore.set({ name, value, ...options });
-        } catch {
-          // V Server Component sa `set` nedá volať; ignorujeme — middleware
-          // session refresh sa stará o cookie lifecycle.
-        }
-      },
-      remove(name: string, options: CookieOptions) {
-        try {
-          cookieStore.set({ name, value: "", ...options });
-        } catch {
-          // viď vyššie
-        }
-      },
-    },
-  });
 }
 
 // =====================================================================
