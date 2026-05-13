@@ -1,0 +1,10 @@
+{
+  "name": "Storky",
+  "short_name": "Storky",
+  "description": "Lydkine osobné storky v jej hlase",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#faf8f3",
+  "theme_color": "#faf8f3",
+  "icons": []
+}

@@ -1,0 +1,48 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+html,
+body {
+  background: #faf8f3;
+  color: #1a1a1a;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+/* Tlačidlá zarovnané s mockupom */
+.btn-primary {
+  @apply w-full rounded-2xl bg-ink py-3.5 px-4 text-center font-semibold text-white transition active:scale-[0.99] disabled:opacity-50;
+}
+
+.btn-secondary {
+  @apply w-full rounded-2xl bg-soft py-3.5 px-4 text-center font-medium text-ink transition active:scale-[0.99] disabled:opacity-50;
+}
+
+.btn-ghost {
+  @apply w-full rounded-2xl py-3.5 px-4 text-center text-sm text-gray-500 transition hover:text-ink;
+}
+
+.input-base {
+  @apply w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm placeholder:text-gray-400 focus:border-ink focus:outline-none;
+}
+
+.label-eyebrow {
+  @apply mb-2 text-xs uppercase tracking-wider text-gray-400;
+}
+
+.card-row {
+  @apply flex items-center gap-3 rounded-2xl bg-gray-50 p-3;
+}
+
+.note {
+  @apply rounded-xl border-l-4 border-accent bg-warm px-4 py-3 text-sm leading-relaxed text-gray-700;
+}
