@@ -2,8 +2,8 @@ import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 import { BackBar } from "@/components/BackBar";
 import { CopyButton } from "@/components/CopyButton";
+import { createServerSupabaseClient } from "@/lib/supabase-server";
 import {
-  createServerSupabaseClient,
   publicPhotoUrl,
   type Story,
   type StoryPhoto,
