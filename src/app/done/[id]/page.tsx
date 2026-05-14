@@ -8,7 +8,7 @@ import {
   type Story,
   type StoryPhoto,
 } from "@/lib/supabase";
-import { getCurrentUser } from "@/lib/auth";
+import { getCurrentUser } from "@/lib/auth-server";
 
 export const dynamic = "force-dynamic";
 

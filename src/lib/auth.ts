@@ -3,8 +3,9 @@
 // Whitelist 2 hardcoded emailov žije tu (env override pre prípad,
 // že by Lydka/Verča potrebovali iný email). Server aj client side
 // volajú `getUserByEmail()` na rozhodnutie role.
-
-import { createServerSupabaseClient } from "@/lib/supabase-server";
+//
+// Server-only `getCurrentUser()` / `require*` helpers žijú v `auth-server.ts`,
+// pretože používajú server-only Supabase client.
 
 export type UserRole = "lydka" | "verca";
 
@@ -63,40 +64,3 @@ export function homePathForRole(role: UserRole): string {
   return role === "lydka" ? "/" : "/verca";
 }
 
-// =====================================================================
-// SERVER-SIDE: getCurrentUser
-// =====================================================================
-//
-// Volá `supabase.auth.getUser()` (na rozdiel od `getSession()` — getUser
-// validuje token cez Supabase a vracia overené hodnoty, nie len cookie).
-// Pre Server Components a API routes.
-
-export async function getCurrentUser(): Promise<UserIdentity | null> {
-  const supabase = createServerSupabaseClient();
-  const {
-    data: { user },
-    error,
-  } = await supabase.auth.getUser();
-
-  if (error || !user?.email) return null;
-  return getUserByEmail(user.email, user.id);
-}
-
-/**
- * Helper pre stránky, ktoré musia mať Lydku.
- * Vracia user alebo null (volajúci sa rozhodne, ako redirectne).
- */
-export async function requireLydka(): Promise<UserIdentity | null> {
-  const user = await getCurrentUser();
-  if (!user || user.role !== "lydka") return null;
-  return user;
-}
-
-/**
- * Helper pre stránky, ktoré musia mať Verču.
- */
-export async function requireVerca(): Promise<UserIdentity | null> {
-  const user = await getCurrentUser();
-  if (!user || user.role !== "verca") return null;
-  return user;
-}

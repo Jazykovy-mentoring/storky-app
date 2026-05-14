@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createServerSupabaseClient } from "@/lib/supabase-server";
-import { getCurrentUser } from "@/lib/auth";
+import { getCurrentUser } from "@/lib/auth-server";
 import { formatStatusLabel, storyTitle, thumbColor } from "@/lib/storyStatus";
 import type { Story, StoryPhoto } from "@/lib/supabase";
 import { publicPhotoUrl } from "@/lib/supabase";
