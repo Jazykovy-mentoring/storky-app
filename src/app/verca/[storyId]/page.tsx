@@ -73,8 +73,11 @@ export default function VercaStoryDetailPage() {
         }),
       );
 
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const nav = navigator as any;
+      type ShareableNavigator = Navigator & {
+        canShare?: (data: { files?: File[] }) => boolean;
+        share?: (data: { files?: File[]; title?: string }) => Promise<void>;
+      };
+      const nav = navigator as ShareableNavigator;
       if (nav.canShare?.({ files }) && nav.share) {
         await nav.share({ files, title: "Storka" });
       } else {
