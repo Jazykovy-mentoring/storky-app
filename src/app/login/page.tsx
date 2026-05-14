@@ -39,6 +39,10 @@ function LoginForm() {
     const { error: authError } = await supabase.auth.signInWithOtp({
       email: normalized,
       options: {
+        // Lydka aj Verča sú pozvaní cez Supabase Auth invitation; nikoho
+        // nového nevyrábame z login formu. `shouldCreateUser: false` zabráni
+        // chybe „signups not allowed" pri vypnutej registrácii.
+        shouldCreateUser: false,
         emailRedirectTo: `${window.location.origin}/auth/callback`,
       },
     });
